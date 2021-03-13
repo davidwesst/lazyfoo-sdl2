@@ -1,3 +1,5 @@
+#define SDL_MAIN_HANDLED
+
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
@@ -28,10 +30,12 @@ int main( int argc, char* args[] )
             SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 100, 255, 100));
             SDL_UpdateWindowSurface( window );
 
-            SDL_Delay(1000);
+            SDL_Delay(10000);
         }
     }
 
     SDL_DestroyWindow( window );
     SDL_Quit();
+    
+    return 0;
 }
