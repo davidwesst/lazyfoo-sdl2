@@ -3,8 +3,9 @@
 #
 
 .vs/
-
 out/
+build/
+
 *.dw
 
 #
