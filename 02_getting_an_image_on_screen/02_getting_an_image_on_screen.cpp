@@ -1,3 +1,5 @@
+#define SDL_MAIN_HANDLED
+
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
@@ -87,7 +89,7 @@ int main( int argc, char* args[] )
 
             // update and wait
             SDL_UpdateWindowSurface( gWindow );
-            SDL_Delay(2000);
+            SDL_Delay(6000);
         }
     }
 
