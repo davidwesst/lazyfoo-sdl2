@@ -8,16 +8,6 @@
 const int SCREEN_HEIGHT = 480;
 const int SCREEN_WIDTH = 640;
 
-enum KeyPressSurfaces
-{
-    KEY_PRESS_SURFACE_DEFAULT,
-    KEY_PRESS_SURFACE_UP,
-    KEY_PRESS_SURFACE_DOWN,
-    KEY_PRESS_SURFACE_LEFT,
-    KEY_PRESS_SURFACE_RIGHT,
-    KEY_PRESS_SURFACE_TOTAL
-};
-
 bool init();
 bool loadMedia();
 void close();
@@ -48,7 +38,17 @@ bool init()
         }
         else
         {
-            gWindowSurface = SDL_GetWindowSurface( gWindow );
+            // initialize PNG loading
+            int imgFlags = IMG_INIT_PNG;
+            if (!(IMG_Init(imgFlags) & imgFlags)) // makes sure bitflags that are needed are set using binary math
+            {
+                printf("Oh no! SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+                initSuccess = false;
+            }
+            else
+            {
+                gWindowSurface = SDL_GetWindowSurface(gWindow);
+            }
         }
     }
 
@@ -57,15 +57,15 @@ bool init()
 
 SDL_Surface* loadSurface(std::string path)
 {
-    // the final optimized image
+    // the final optimized imagegimp
     SDL_Surface* optimizedSurface = NULL;
 
     // load the image
-    SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
     if (loadedSurface == NULL)
     {
-        printf("Oh no! The image %s failed to load. SDL Error: %s\n", path.c_str(), SDL_GetError());
+        printf("Oh no! The image %s failed to load. SDL Error: %s\n", path.c_str(), IMG_GetError());
     }
     else
     {
@@ -87,7 +87,7 @@ bool loadMedia()
 {
     bool loadMediaSuccess = true;
 
-    gSurface = loadSurface("stretch_me.bmp");
+    gSurface = loadSurface("test_image.png");
 
     return loadMediaSuccess;
 }
@@ -102,7 +102,8 @@ void close()
     SDL_DestroyWindow( gWindow );
     gWindow = NULL;
 
-    // quit sdl
+    // quit sdl and subsystems
+    IMG_Quit();
     SDL_Quit();
 }
 
