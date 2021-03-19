@@ -123,17 +123,50 @@ void close()
 
 void RenderToTopLeftViewport()
 {
+    // define the viewport
+    SDL_Rect topLeftViewport;
+    topLeftViewport.x = 0;
+    topLeftViewport.y = 0;
+    topLeftViewport.w = SCREEN_WIDTH / 2;
+    topLeftViewport.h = SCREEN_HEIGHT / 2;
 
+    // set the viewport
+    SDL_RenderSetViewport(gRenderer, &topLeftViewport);
+
+    // render the texture to the viewport
+    SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 }
 
 void RenderToTopRightViewport()
 {
+    // define the viewport
+    SDL_Rect topRightViewport;
+    topRightViewport.x = SCREEN_WIDTH / 2;
+    topRightViewport.y = 0;
+    topRightViewport.w = SCREEN_WIDTH / 2;
+    topRightViewport.h = SCREEN_HEIGHT / 2;
 
+    // set the viewport
+    SDL_RenderSetViewport(gRenderer, &topRightViewport);
+
+    // render the texture to the viewport
+    SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 }
 
 void RenderToBottomHalfViewport()
 {
+    // define the viewport
+    SDL_Rect bottomViewport;
+    bottomViewport.x = 0;
+    bottomViewport.y = SCREEN_HEIGHT / 2;
+    bottomViewport.w = SCREEN_WIDTH;
+    bottomViewport.h = SCREEN_HEIGHT / 2;
 
+    // set the viewport
+    SDL_RenderSetViewport(gRenderer, &bottomViewport);
+
+    // render the texture to the viewport
+    SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 }
 
 int main( int argc, char* args[] )
@@ -178,7 +211,7 @@ int main( int argc, char* args[] )
                 RenderToBottomHalfViewport();
 
                 // update
-                // SDL_RenderPresent(gRenderer);
+                SDL_RenderPresent(gRenderer);
             }
         }
     }
