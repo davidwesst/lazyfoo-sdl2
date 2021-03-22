@@ -13,11 +13,7 @@ const int SCREEN_WIDTH = 640;
 bool init();
 bool loadMedia();
 void close();
-SDL_Texture* loadTexture(std::string);
-
-void RenderToTopLeftViewport();
-void RenderToTopRightViewport();
-void RenderToBottomHalfViewport();
+SDL_Texture* loadTexture(std::string);/* ` */
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;

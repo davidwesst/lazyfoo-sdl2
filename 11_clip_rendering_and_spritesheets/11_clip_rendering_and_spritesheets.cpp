@@ -15,10 +15,6 @@ bool loadMedia();
 void close();
 SDL_Texture* loadTexture(std::string);
 
-void RenderToTopLeftViewport();
-void RenderToTopRightViewport();
-void RenderToBottomHalfViewport();
-
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 LTexture gPlayerTexture;
