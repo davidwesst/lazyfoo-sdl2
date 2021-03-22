@@ -52,7 +52,7 @@ bool LTexture::loadFromFile(std::string path, SDL_Renderer* renderer)
 	return mTexture != NULL;
 }
 
-void free()
+void LTexture::free()
 {
 	// free it, if it exists
 	if (mTexture != NULL)
@@ -63,18 +63,18 @@ void free()
 	}
 }
 
-void render(int x, int y, SDL_Renderer* renderer)
+void LTexture::render(int x, int y, SDL_Renderer* renderer)
 {
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
 	SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
 }
 
-int getWidth()
+int LTexture::getWidth()
 {
 	return mWidth;
 }
 
-int getHeight()
+int LTexture::getHeight()
 {
 	return mHeight;
 }
