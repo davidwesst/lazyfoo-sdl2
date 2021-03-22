@@ -2,8 +2,8 @@ cmake_minimum_required( VERSION 3.15 )
 
 project(lazyfoo-sdl2 VERSION 1.0 LANGUAGES CXX)
 
-find_package(SDL2 CONFIG REQUIRED)
-find_package(sdl2-image CONFIG REQUIRED)
+find_package(SDL2 REQUIRED)
+find_package(sdl2-image REQUIRED)
 
 add_subdirectory(common)
 
