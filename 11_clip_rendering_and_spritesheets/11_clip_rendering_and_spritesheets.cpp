@@ -13,13 +13,12 @@ const int SCREEN_WIDTH = 640;
 bool init();
 bool loadMedia();
 void close();
-SDL_Texture* loadTexture(std::string);
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
-LTexture gPlayerTexture;
-LTexture gBackgroundTexture;
+SDL_Rect gSpriteClips[4];
 
+LTexture gSpriteSheetTexture;
 
 bool init()
 {
@@ -67,51 +66,40 @@ bool init()
     return initSuccess;
 }
 
-SDL_Texture* loadTexture(std::string path)
-{
-    // the final optimized imagegimp
-    SDL_Texture* newTexture = NULL;
-
-    // load the image
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-
-    if (loadedSurface == NULL)
-    {
-        printf("Oh no! The image %s failed to load. SDL Error: %s\n", path.c_str(), IMG_GetError());
-    }
-    else
-    {
-        // create texture from surface
-        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-        if (newTexture == NULL)
-        {
-            printf("Oh no! Unable to load the texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-        }
-
-        // free the loaded surface
-        SDL_FreeSurface(loadedSurface);
-    }
-
-    return newTexture;
-}
-
 bool loadMedia()
 {
     bool loadMediaSuccess = true;
 
-    // load player
-    if (gPlayerTexture.loadFromFile("keying_image.png", gRenderer) == false)
+    // load spritesheet
+    if (gSpriteSheetTexture.loadFromFile("spritesheet.png", gRenderer) == false)
     {
-        printf("Failed to load player texture. \n");
+        printf("Failed to spritesheet texture. \n");
         loadMediaSuccess = false;
     }
 
-    // load background
-    if (gBackgroundTexture.loadFromFile("background_image.png", gRenderer) == false)
-    {
-        printf("Failed to load background texture. \n");
-        loadMediaSuccess = false;
-    }
+    // top left sprite
+    gSpriteClips[0].x = 0;
+    gSpriteClips[0].y = 0;
+    gSpriteClips[0].w = 32;
+    gSpriteClips[0].h = 32;
+
+    // top right sprite
+    gSpriteClips[1].x = 32;
+    gSpriteClips[1].y = 0;
+    gSpriteClips[1].w = 32;
+    gSpriteClips[1].h = 32;
+
+    // bottom left sprite
+    gSpriteClips[2].x = 0;
+    gSpriteClips[2].y = 32;
+    gSpriteClips[2].w = 32;
+    gSpriteClips[2].h = 32;
+
+    // bottom right sprite
+    gSpriteClips[3].x = 32;
+    gSpriteClips[3].y = 32;
+    gSpriteClips[3].w = 32;
+    gSpriteClips[3].h = 32;
 
     return loadMediaSuccess;
 }
@@ -119,8 +107,7 @@ bool loadMedia()
 void close()
 {
     // destroy texture
-    gPlayerTexture.free();
-    gBackgroundTexture.free();
+    gSpriteSheetTexture.free();
 
     // destroy window
     SDL_DestroyRenderer(gRenderer);
@@ -170,8 +157,10 @@ int main( int argc, char* args[] )
                 SDL_RenderClear(gRenderer);
 
                 // draw
-                gBackgroundTexture.render(0, 0, gRenderer);
-                gPlayerTexture.render(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, gRenderer);
+                gSpriteSheetTexture.render(0, 0, gRenderer, &gSpriteClips[0]);
+                gSpriteSheetTexture.render(SCREEN_WIDTH - gSpriteClips[1].w, 0, gRenderer, &gSpriteClips[1]);
+                gSpriteSheetTexture.render(0, SCREEN_HEIGHT - gSpriteClips[2].h, gRenderer, &gSpriteClips[2]);
+                gSpriteSheetTexture.render(SCREEN_WIDTH - gSpriteClips[3].w, SCREEN_HEIGHT - gSpriteClips[3].h, gRenderer, &gSpriteClips[3]);
 
                 // update
                 SDL_RenderPresent(gRenderer);

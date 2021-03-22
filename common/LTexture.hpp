@@ -22,7 +22,7 @@ public:
 	void free();
 
 	// render texture at coordinate
-	void render(int x, int y, SDL_Renderer* renderer);
+	void render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip = NULL);
 
 	// get dimensions
 	int getWidth();
