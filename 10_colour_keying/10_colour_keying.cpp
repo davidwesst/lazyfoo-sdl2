@@ -111,7 +111,7 @@ bool loadMedia()
     }
 
     // load background
-    if (gPlayerTexture.loadFromFile("background_image.png", gRenderer) == false)
+    if (gBackgroundTexture.loadFromFile("background_image.png", gRenderer) == false)
     {
         printf("Failed to load background texture. \n");
         loadMediaSuccess = false;
