@@ -52,6 +52,11 @@ bool LTexture::loadFromFile(std::string path, SDL_Renderer* renderer)
 	return mTexture != NULL;
 }
 
+void LTexture::setColour(Uint8 r, Uint8 g, Uint8 b)
+{
+	SDL_SetTextureColorMod(mTexture, r, g, b);
+}
+
 void LTexture::free()
 {
 	// free it, if it exists

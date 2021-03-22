@@ -18,6 +18,9 @@ public:
 	// load image at path
 	bool loadFromFile(std::string, SDL_Renderer* renderer);
 
+	// apply colour modulation
+	void setColour(Uint8 r, Uint8 g, Uint8 b);
+
 	// Deallocates texture
 	void free();
 
