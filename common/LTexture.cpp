@@ -57,6 +57,16 @@ void LTexture::setColour(Uint8 r, Uint8 g, Uint8 b)
 	SDL_SetTextureColorMod(mTexture, r, g, b);
 }
 
+void LTexture::setBlendMode(SDL_BlendMode blendMode)
+{
+	SDL_SetTextureBlendMode(mTexture, blendMode);
+}
+
+void LTexture::setAlpha(Uint8 alpha)
+{
+	SDL_SetTextureAlphaMod(mTexture, alpha);
+}
+
 void LTexture::free()
 {
 	// free it, if it exists

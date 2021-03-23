@@ -21,6 +21,12 @@ public:
 	// apply colour modulation
 	void setColour(Uint8 r, Uint8 g, Uint8 b);
 
+	// set blend mode
+	void setBlendMode(SDL_BlendMode blendMode);
+
+	// set alpha
+	void setAlpha(Uint8 alpha);
+
 	// Deallocates texture
 	void free();
 
